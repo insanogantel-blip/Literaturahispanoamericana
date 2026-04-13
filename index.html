@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literatura Hispanoamericana | Seres Estraños mitológicos</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. CONFIGURACIÓN GLOBAL Y COLORES --- */
+        :root {
+            --negro-puro: #050505;
+            --negro-suave: #121212;
+            --dorado-mitico: #d4af37;
+            --rojo-sangre: #8b0000;
+            --transicion: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--negro-puro);
+            color: #e0e0e0;
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* --- 2. EFECTOS ESPECIALES (RGB Y ESTRELLAS) --- */
+        canvas#particulas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .rgb-dinamico {
+            font-family: 'Cinzel', serif;
+            transition: color 1s linear;
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+        /* --- 3. HEADER Y TITULOS --- */
+        header {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--negro-puro) 100%),
+                        url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            border-bottom: 2px solid #222;
+        }
+
+        .titulo-principal {
+            font-size: clamp(2rem, 8vw, 5rem);
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+        }
+
+        .autor-firma {
+            font-size: 1.5rem;
+            color: #666;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- 4. CUADRÍCULA DE ZONAS (RESPONSIVE) --- */
+        .grid-seres {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            padding: 80px 10%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .zona-card {
+            background: var(--negro-suave);
+            border: 1px solid #222;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .zona-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--dorado-mitico);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%);
+            transition: var(--transicion);
+        }
+
+        .zona-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        .info-basica {
+            padding: 25px;
+            background: linear-gradient(to top, var(--negro-suave), transparent);
+        }
+
+        /* --- 5. MODAL PROFESIONAL (ZONA DE INFORMACIÓN) --- */
+        .modal-zona {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98);
+            display: none;
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 50px 5%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-body {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .modal-texto h2 { font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 20px; }
+        .modal-texto p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
+
+        .controles-audio {
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-narrar {
+            background: var(--dorado-mitico);
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-cerrar {
+            position: absolute;
+            top: 30px; right: 50px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* --- 6. ADAPTACIÓN MÓVIL --- */
+        @media (max-width: 768px) {
+            .modal-body { grid-template-columns: 1fr; }
+            .titulo-principal { font-size: 2.5rem; }
+            .btn-cerrar { right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particulas"></canvas>
+
+    <header>
+        <h1 class="titulo-principal rgb-dinamico">Literatura Hispanoamericana</h1>
+        <p class="autor-firma">Creado por Jorge</p>
+    </header>
+
+    <main class="grid-seres">
+        <div class="zona-card" onclick="abrirZona('El Mohán', 'El Mohán es una de las leyendas más profundas del folclore hispanoamericano. Se le describe como un ser antiguo, de piel cobriza y cabellos larguísimos que le cubren todo el cuerpo. Habita en cuevas doradas cerca de los grandes ríos. Es el guardián de las aguas y los peces, pero también un raptor de lavanderas. En la literatura, representa el misterio de la naturaleza indomable.', 'https://images.unsplash.com/photo-1508197149814-0cc02e8b7f74?q=80&w=1000')">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1508197149814-0cc02e8b7f74?q=80&w=1000" alt="El Mohán">
+            </div>
+            <div class="info-basica">
+                <h2 class="rgb-dinamico">Zona: El Mohán</h2>
+                <p>El guardián de los ríos profundos...</p>
+            </div>
+        </div>
+
+        <div class="zona-card" onclick="abrirZona('La Llorona', 'Símbolo trágico de la literatura oral hispana. Representa el remordimiento y el dolor eterno. Según los textos recopilados en toda América Latina, es el espectro de una mujer que busca a sus hijos por las orillas de los ríos, emitiendo un grito que hiela la sangre. Ha inspirado poemas, novelas y ensayos sobre la culpa y la identidad mestiza.', 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=1000')">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=1000" alt="La Llorona">
+            </div>
+            <div class="info-basica">
+                <h2 class="rgb-dinamico">Zona: La Llorona</h2>
+                <p>El lamento que recorre los valles...</p>
+            </div>
+        </div>
+
+        <div class="zona-card" onclick="abrirZona('El Cadejo', 'Un ser mitológico de Centroamérica. Existen dos: el blanco que protege a los caminantes y el negro que simboliza el peligro. En la literatura, el Cadejo representa la dualidad humana, la lucha constante entre el bien y el mal que acecha en los caminos solitarios de la noche.', 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000')">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000" alt="El Cadejo">
+            </div>
+            <div class="info-basica">
+                <h2 class="rgb-dinamico">Zona: El Cadejo</h2>
+                <p>La dualidad del espíritu nocturno...</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="modalZona" class="modal-zona">
+        <span class="btn-cerrar" onclick="cerrarZona()">&times;</span>
+        <div class="modal-body">
+            <div class="modal-img-grande">
+                <img id="imgModal" src="" style="width: 100%; border-radius: 20px; border: 2px solid var(--dorado-mitico);">
+            </div>
+            <div class="modal-texto">
+                <h2 id="tituloModal" class="rgb-dinamico"></h2>
+                <p id="descModal"></p>
+                <div class="controles-audio">
+                    <button class="btn-narrar" onclick="hablarTexto()">
+                        <span>🔊</span> REPRODUCIR NARRACIÓN
+                    </button>
+                    <p style="font-size: 0.8rem; color: #666;">(Voz automática de zona)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="musicaFondo" loop>
+        <source src="TU_URL_DE_MUSICA_AQUI" type="audio/mpeg">
+    </audio>
+
+    <script>
+        /* 1. LÓGICA RGB PARA TÍTULOS */
+        function actualizarRGB() {
+            const color = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            document.querySelectorAll('.rgb-dinamico').forEach(el => {
+                el.style.color = color;
+            });
+        }
+        setInterval(actualizarRGB, 1000);
+
+        /* 2. SISTEMA DE ESTRELLAS (POLVO ESTELAR) */
+        const canvas = document.getElementById('particulas');
+        const ctx = canvas.getContext('2d');
+        let puntos = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        window.addEventListener('mousemove', (e) => {
+            for(let i=0; i<5; i++) {
+                puntos.push({
+                    x: e.clientX, y: e.clientY,
+                    vx: (Math.random()-0.5)*3, vy: (Math.random()-0.5)*3,
+                    vida: 1, color: `rgba(212, 175, 55, ${Math.random()})`
+                });
+            }
+        });
+
+        function animar() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            puntos.forEach((p, index) => {
+                p.x += p.vx; p.y += p.vy; p.vida -= 0.01;
+                ctx.fillStyle = p.color.replace(')', `, ${p.vida})`);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, Math.random()*3, 0, Math.PI*2);
+                ctx.fill();
+                if(p.vida <= 0) puntos.splice(index, 1);
+            });
+            requestAnimationFrame(animar);
+        }
+        animar();
+
+        /* 3. LÓGICA DE ZONAS Y NARRACIÓN */
+        const modal = document.getElementById('modalZona');
+        
+        function abrirZona(titulo, info, img) {
+            document.getElementById('tituloModal').innerText = titulo;
+            document.getElementById('descModal').innerText = info;
+            document.getElementById('imgModal').src = img;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Bloquea scroll
+        }
+
+        function cerrarZona() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            window.speechSynthesis.cancel(); // Detener voz
+        }
+
+        function hablarTexto() {
+            const texto = document.getElementById('descModal').innerText;
+            const mensaje = new SpeechSynthesisUtterance(texto);
+            mensaje.lang = 'es-ES';
+            mensaje.rate = 0.9; // Un poco más lento para ser profesional
+            window.speechSynthesis.speak(mensaje);
+        }
+    </script>
+</body>
+</html>
