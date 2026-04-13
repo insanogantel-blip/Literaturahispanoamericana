@@ -309,12 +309,17 @@
         }
 
         function hablarTexto() {
-            const texto = document.getElementById('descModal').innerText;
-            const mensaje = new SpeechSynthesisUtterance(texto);
-            mensaje.lang = 'es-ES';
-            mensaje.rate = 0.9; // Un poco más lento para ser profesional
-            window.speechSynthesis.speak(mensaje);
-        }
+    const texto = document.getElementById('descModal').innerText;
+    const mensaje = new SpeechSynthesisUtterance(texto);
+    
+    // Esto detecta automáticamente el idioma español que tenga tu PC
+    mensaje.lang = 'es-MX'; // Prueba con es-MX para español latino
+    mensaje.rate = 0.9;
+    
+    // IMPORTANTE: Cancelar cualquier voz previa antes de empezar
+    window.speechSynthesis.cancel(); 
+    window.speechSynthesis.speak(mensaje);
+}
     </script>
 </body>
 </html>
