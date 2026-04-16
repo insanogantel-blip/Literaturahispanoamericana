@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Literatura Hispanoamericana</title>
+    <title>Archivo: Literatura Hispanoamericana</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;1,400&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
 
@@ -25,7 +25,7 @@
             cursor: cell;
         }
 
-        /* 1, 8. TÍTULOS RGB (SIN LA PALABRA PROYECTO) */
+        /* 1, 8. TÍTULOS RGB */
         .rgb-titulo {
             font-family: 'Cinzel Decorative', cursive;
             transition: color var(--rgb-speed) linear;
@@ -192,10 +192,8 @@
     </header>
 
     <main class="archivo-contenedor">
-        <h2 class="seccion-label">ARCHIVO DE SERES Y CRÓNICAS</h2>
-        
-        <div class="grid-zonas" id="grid">
-            </div>
+        <h2 class="seccion-label">ARCHIVO DE SERES Y CRÓNICAS EXTRAÑAS</h2>
+        <div class="grid-zonas" id="grid"></div>
     </main>
 
     <div id="portal" class="portal">
@@ -217,32 +215,107 @@
     <iframe style="display:none" src="https://www.youtube.com/embed/P_NfP0-F_mU?autoplay=1&loop=1"></iframe>
 
     <script>
-        // --- BASE DE DATOS EXTENSA (PARA QUE SEA LARGO) ---
+        // --- BASE DE DATOS EXTENSA (20 SERES) ---
         const BASE_DATOS = [
             {
                 nombre: "El Mohán",
-                info: "El Mohán es una de las figuras más enigmáticas de la literatura oral de los ríos. Se describe como un anciano de piel cobriza, largos cabellos y ojos que brillan como brasas. Habita en cuevas de cristal bajo el agua. En la literatura, representa el misterio de la naturaleza virgen y el guardián de los tesoros precolombinos. Suele atraer a los pescadores con el aroma de su tabaco eterno.",
+                info: "El Mohán es el guardián de los ríos y tesoros ocultos en las profundidades. Se describe como un anciano de piel cobriza, largos cabellos y ojos ígneos. Habita en cuevas de cristal. En la literatura, representa el espíritu salvaje de la naturaleza y el recordatorio de las culturas precolombinas que aún respiran bajo el agua.",
                 img: "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=800"
             },
             {
                 nombre: "La Llorona",
-                info: "Es el espectro arquetípico de Hispanoamérica. Representa el dolor eterno y la culpa colectiva tras la tragedia. Su lamento a orillas del agua ha sido analizado por grandes escritores como símbolo de la identidad mestiza. Es un alma en pena que recorre los valles gritando por sus hijos perdidos, uniendo el horror con la compasión literaria.",
+                info: "Figura arquetípica del dolor hispanoamericano. Su lamento nocturno es un eco de la culpa y la tragedia colonial. Es una mujer espectral que busca a sus hijos por las riberas de los ríos, simbolizando la pérdida de la identidad y el sufrimiento eterno.",
                 img: "https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=800"
             },
             {
                 nombre: "La Patasola",
-                info: "Habitante de las selvas más profundas. Es una mujer de una sola pierna que termina en pezuña. Es la gran protectora de la fauna y flora; castiga a los cazadores y a los taladores de árboles. En la narrativa hispana, simboliza la furia de la selva contra la profanación del hombre moderno.",
+                info: "Habitante de las selvas vírgenes, es una mujer de una sola pierna que termina en pezuña. Protege los bosques de los taladores y cazadores. Representa la furia de la naturaleza contra el hombre que busca destruir el equilibrio ecológico.",
                 img: "https://images.unsplash.com/photo-1440688807730-73e4e2169fb8?w=800"
             },
             {
                 nombre: "El Sombrerón",
-                info: "Personaje bohemio de la tradición mexicana y guatemalteca. Viste de negro con un sombrero gigantesco. Se dedica a trenzar las crines de los caballos y a enamorar a las jóvenes con serenatas de ultratumba. Representa el romanticismo trágico y los peligros de la noche en los pueblos coloniales.",
+                info: "Pequeño ser de la tradición mexicana y guatemalteca que viste de negro con un sombrero gigante. Trenza el pelo de las mujeres y las mulas. Representa el erotismo prohibido y el misterio de las serenatas nocturnas.",
                 img: "https://images.unsplash.com/photo-1501430654243-c934cec2e1c0?w=800"
             },
             {
-                nombre: "La Madre Monte",
-                info: "Giganta que viste de hojas y musgo. Gobierna sobre los vientos y las lluvias. Se dice que cuando ella se baña en los ríos, estos se desbordan. En la literatura regionalista, es la personificación absoluta de la Tierra como madre y juez de los actos humanos.",
-                img: "https://images.unsplash.com/photo-1508197149814-0cc02e8b7f74?w=800"
+                nombre: "El Silbón",
+                info: "Espectro de los llanos colombo-venezolanos. Un gigante que carga un saco de huesos y emite un silbido rítmico. Su presencia es señal de muerte inminente. Personifica el castigo a la falta de respeto hacia los padres.",
+                img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800"
+            },
+            {
+                nombre: "El Chupacabras",
+                info: "Mito moderno que fusiona la criptozoología con el terror contemporáneo. Surgido en las zonas rurales de Puerto Rico y extendido por todo el continente. Representa el miedo a lo desconocido en la oscuridad.",
+                img: "https://images.unsplash.com/photo-1516339901600-2e1a62dc0c45?w=800"
+            },
+            {
+                nombre: "La Sayona",
+                info: "Espíritu venezolano que castiga a los hombres infieles. Aparece como una mujer de belleza deslumbrante que muestra su rostro de calavera al final. Es el símbolo del orden moral y el horror.",
+                img: "https://images.unsplash.com/photo-1502602894657-3e917240017c?w=800"
+            },
+            {
+                nombre: "El Trauco",
+                info: "Criatura de la mitología chilena (Chiloé). Un ser pequeño y deforme que posee una mirada magnética capaz de encantar a las mujeres. Representa la fuerza indomable de la selva fría.",
+                img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800"
+            },
+            {
+                nombre: "La Ciguapa",
+                info: "Mujeres hermosas de República Dominicana con los pies hacia atrás para confundir a sus perseguidores. Viven en las montañas y encarnan la libertad indomable y mística.",
+                img: "https://images.unsplash.com/photo-1520262454473-a1a82276a574?w=800"
+            },
+            {
+                nombre: "El Cadejo",
+                info: "Perros espectrales de Centroamérica: el blanco que protege y el negro que acecha. Representan la eterna dualidad entre la protección y la perdición en los caminos solitarios.",
+                img: "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=800"
+            },
+            {
+                nombre: "El Pombero",
+                info: "Duende de la mitología guaraní que protege el monte. Para ganarse su favor se le ofrecen tabaco y miel. Es el dueño de los pájaros y del silencio nocturno.",
+                img: "https://images.unsplash.com/photo-1511497584788-876760111969?w=800"
+            },
+            {
+                nombre: "La Madre del Agua",
+                info: "Ninfa de cabellos dorados que habita en los manantiales. Representa la pureza y la fertilidad del agua, pero puede ahogar a quienes contaminan sus fuentes.",
+                img: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800"
+            },
+            {
+                nombre: "El Hojarasquín",
+                info: "Ser compuesto de ramas y hojas secas de los bosques colombianos. Ayuda a los viajeros respetuosos pero pierde para siempre a quienes talan árboles sin permiso.",
+                img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800"
+            },
+            {
+                nombre: "El Tío de la Mina",
+                info: "Deidad andina que gobierna las profundidades. Los mineros le dejan ofrendas de coca y licor para que les permita extraer mineral sin peligro.",
+                img: "https://images.unsplash.com/photo-1519213123308-073105574384?w=800"
+            },
+            {
+                nombre: "El Basilisco",
+                info: "Híbrido de serpiente y gallo de la mitología chilena. Su mirada es letal. Nace de un huevo puesto por un gallo viejo en un establo sucio.",
+                img: "https://images.unsplash.com/photo-1534802046520-4f27db7f3ae5?w=800"
+            },
+            {
+                nombre: "La Tunda",
+                info: "Mujer con una pata de madera (molinillo) que atrae a los niños con camarones cocinados en el monte. Es una figura de respeto en el pacífico colombo-ecuatoriano.",
+                img: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800"
+            },
+            {
+                nombre: "El Cuchivilu",
+                info: "Mito marino que es mitad cerdo y mitad serpiente. Destruye los corrales de pesca en las costas y es símbolo de desgracia para los marineros.",
+                img: "https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?w=800"
+            },
+            {
+                nombre: "La Mancarita",
+                info: "Ser velludo que camina con los pies al revés por las selvas de los llanos. Rapta personas por soledad, buscando compañía en lo profundo del bosque.",
+                img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800"
+            },
+            {
+                nombre: "El Invunche",
+                info: "Guardián de las cuevas de brujos. Un ser humano modificado mágicamente que no puede salir de la oscuridad. Representa los secretos prohibidos.",
+                img: "https://images.unsplash.com/photo-1518063311540-06a2169c593a?w=800"
+            },
+            {
+                nombre: "La Madremonte",
+                info: "Giganta de musgo que rige el clima. Cuando se enfurece, desata tormentas y hace que los ríos borren los caminos de los hombres pecadores.",
+                img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800"
             }
         ];
 
@@ -294,7 +367,7 @@
         }
         animate();
 
-        // --- SISTEMA DE VOZ REFORZADO ---
+        // --- SISTEMA DE VOZ ---
         const synth = window.speechSynthesis;
 
         function abrirPortal(ser) {
@@ -303,7 +376,7 @@
             document.getElementById('p-img').src = ser.img;
             document.getElementById('portal').style.display = 'block';
             document.body.style.overflow = 'hidden';
-            synth.cancel(); // Detener cualquier audio previo
+            synth.cancel();
         }
 
         function cerrarPortal() {
@@ -313,29 +386,20 @@
         }
 
         function reproducirVoz() {
-            synth.cancel(); // Limpiar cola de voz
+            synth.cancel();
             const texto = document.getElementById('p-info').innerText;
             const mensaje = new SpeechSynthesisUtterance(texto);
             mensaje.lang = 'es-MX';
             mensaje.rate = 0.9;
-            mensaje.pitch = 1;
-
             const btn = document.querySelector('.btn-audio');
             mensaje.onstart = () => btn.innerHTML = "<span>🔊</span> NARRANDO...";
             mensaje.onend = () => btn.innerHTML = "<span>🔊</span> REINICIAR NARRACIÓN";
-
-            // El truco para Chrome: disparar la voz después de un micro-retraso
-            setTimeout(() => {
-                synth.speak(mensaje);
-            }, 50);
+            setTimeout(() => { synth.speak(mensaje); }, 50);
         }
 
-        // DESBLOQUEADOR DE AUDIO: Activa el motor de voz al primer toque del usuario
         document.body.addEventListener('click', () => {
-            const desbloqueo = new SpeechSynthesisUtterance('');
-            synth.speak(desbloqueo);
+            synth.speak(new SpeechSynthesisUtterance(''));
         }, { once: true });
-
     </script>
 </body>
 </html>
